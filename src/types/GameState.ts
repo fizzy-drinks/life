@@ -1,3 +1,1 @@
-
-
-export type GameState = Record<number, Record<number, boolean>>
+export type GameState = Record<number, Record<number, boolean>>;
