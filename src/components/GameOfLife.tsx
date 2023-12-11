@@ -7,6 +7,7 @@ import LiveCells from './LiveCells';
 import { GameState } from '@/types/GameState';
 
 const GameOfLife = () => {
+  const [center, setCenter] = useState<[number, number]>([0, 0]);
   const [liveCells, setLiveCells] = useState<GameState>({});
   const onSquareClicked = ([x, y]: [number, number]) => {
     setLiveCells((prev) => {
@@ -23,11 +24,19 @@ const GameOfLife = () => {
     });
   };
 
+  const moveCenter = ([x, y]: [number, number]) => {
+    setCenter((prev) => [prev[0] - x, prev[1] - y]);
+  };
+
   return (
     <>
-      <Grid />
-      <LiveCells cells={liveCells} />
-      <ClickListener onSquareClicked={onSquareClicked} />
+      <Grid center={center} />
+      <LiveCells cells={liveCells} center={center} />
+      <ClickListener
+        onSquareClicked={onSquareClicked}
+        onNavigate={moveCenter}
+        center={center}
+      />
     </>
   );
 };

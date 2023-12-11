@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-const Grid = () => {
+const Grid: FC<{ center: [number, number] }> = ({ center }) => {
   const [screenSize, setScreenSize] = useState<[number, number]>([0, 0]);
   useEffect(() => {
     setScreenSize([window.innerWidth, window.innerHeight]);
@@ -13,7 +13,9 @@ const Grid = () => {
   }, []);
 
   const screenCenter = screenSize.map((n) => Math.floor(n / 2));
-  const gridOffset = screenCenter.map((n) => (n % 32) - 0.5);
+  const gridOffset = screenCenter.map(
+    (n, i) => (n % 32) - 0.5 - (center[i] % 32),
+  );
 
   return (
     <div
