@@ -110,6 +110,12 @@ const GameOfLife = () => {
         >
           {playing ? 'Stop' : 'Play'}
         </button>
+        <button
+          onClick={() => setLiveCells({})}
+          className='rounded border-2 border-black p-2'
+        >
+          Clear
+        </button>
       </div>
     </>
   );
