@@ -7,7 +7,19 @@ const ClickListener: FC<{
   onNavigate: (delta: [number, number]) => void;
   center: [number, number];
 }> = ({ onSquareClicked, onNavigate, center }) => {
+  const [dragging, setDragging] = useState(false);
+  const [hasDragged, setHasDragged] = useState(false);
+  const [initial, setInitial] = useState<[number, number]>([0, 0]);
+
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
+    if (hasDragged) {
+      setDragging(false);
+      setHasDragged(false);
+      return;
+    }
+
+    setDragging(false);
+
     const { innerWidth: w, innerHeight: h } = window;
     onSquareClicked(
       [
@@ -17,8 +29,6 @@ const ClickListener: FC<{
     );
   };
 
-  const [dragging, setDragging] = useState(false);
-  const [initial, setInitial] = useState<[number, number]>([0, 0]);
   const onMouseDown: MouseEventHandler<HTMLDivElement> = (event) => {
     setDragging(true);
     setInitial([event.clientX, event.clientY]);
@@ -27,12 +37,9 @@ const ClickListener: FC<{
   const onMouseMove: MouseEventHandler<HTMLDivElement> = (event) => {
     if (!dragging) return;
 
+    setHasDragged(true);
     setInitial([event.clientX, event.clientY]);
     onNavigate([event.clientX - initial[0], event.clientY - initial[1]]);
-  };
-
-  const onMouseUp: MouseEventHandler<HTMLDivElement> = (event) => {
-    setDragging(false);
   };
 
   return (
@@ -40,7 +47,6 @@ const ClickListener: FC<{
       className='w-full h-full absolute top-0 left-0'
       onClick={onClick}
       onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
     />
   );
