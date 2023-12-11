@@ -20,7 +20,7 @@ const GameContext = createContext<{
   setSpeed: (val: number) => void;
   next: (skip: number) => void;
   reset: () => void;
-  toggleCell: (val: [number, number]) => void;
+  setCell: (coords: [number, number], val: boolean) => void;
 }>({} as unknown as any);
 
 const GameProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -47,16 +47,12 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
     setPlaying(false);
   };
 
-  const toggleCell = ([x, y]: [number, number]) => {
+  const setCell = ([x, y]: [number, number], value: boolean) => {
     setGameState((prev) => {
       const liveCells = JSON.parse(JSON.stringify(prev));
-      if (liveCells[x]?.[y]) {
-        liveCells[x][y] = false;
-      } else {
-        if (!liveCells[x]) liveCells[x] = {};
+      if (!liveCells[x]) liveCells[x] = {};
 
-        liveCells[x][y] = true;
-      }
+      liveCells[x][y] = value;
 
       return liveCells;
     });
@@ -70,7 +66,7 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
         gameState,
         next,
         reset,
-        toggleCell,
+        setCell,
         speed,
         setSpeed,
         playing,

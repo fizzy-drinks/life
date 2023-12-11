@@ -14,7 +14,7 @@ const VisualisationContext = createContext<{
 }>({} as unknown as any);
 
 const VisualisationProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [color, setColor] = useState<string>('#ef4444');
+  const [color, setColor] = useState<string>('#42f06e');
   const [center, setCenter] = useState<[number, number]>([0, 0]);
 
   const moveCenter = ([x, y]: [number, number]) => {
