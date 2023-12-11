@@ -3,10 +3,11 @@
 import { GameState } from '@/types/GameState';
 import { FC } from 'react';
 
-const LiveCells: FC<{ cells: GameState; center: [number, number] }> = ({
-  cells,
-  center,
-}) => {
+const LiveCells: FC<{
+  cells: GameState;
+  center: [number, number];
+  color: string;
+}> = ({ cells, center, color }) => {
   const isCellLive = (x: number, y: number) => cells[x]?.[y] === true;
 
   return (
@@ -17,11 +18,12 @@ const LiveCells: FC<{ cells: GameState; center: [number, number] }> = ({
           .map(([y]) => (
             <div
               key={`${x}-${y}`}
-              className='absolute w-[32px] h-[32px] border-red-500 border-2 rounded'
+              className='absolute w-[32px] h-[32px] border-2 rounded'
               style={{
                 top: window.innerHeight / 2 + Number(y) * 32 - center[1],
                 left: window.innerWidth / 2 + Number(x) * 32 - center[0],
-                boxShadow: '#ef4444 0 0 5px 2px inset',
+                boxShadow: color + ' 0 0 5px 2px inset',
+                borderColor: color,
                 borderTopWidth: isCellLive(Number(x), Number(y) - 1) ? 0 : 2,
                 borderBottomWidth: isCellLive(Number(x), Number(y) + 1) ? 0 : 2,
                 borderLeftWidth: isCellLive(Number(x) - 1, Number(y)) ? 0 : 2,

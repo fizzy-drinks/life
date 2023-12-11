@@ -101,10 +101,12 @@ const GameOfLife = () => {
 
   const [skip, setSkip] = useState<number>(5);
 
+  const [color, setColor] = useState<string>('#ef4444');
+
   return (
     <>
       <Grid center={center} />
-      <LiveCells cells={liveCells} center={center} />
+      <LiveCells cells={liveCells} center={center} color={color} />
       <ClickListener
         onSquareClicked={onSquareClicked}
         onNavigate={moveCenter}
@@ -164,6 +166,18 @@ const GameOfLife = () => {
             >
               Go
             </button>
+          </div>
+          <div className='p-2'>
+            <label htmlFor='color' className='block text-center'>
+              Color
+            </label>
+            <input
+              id='color'
+              type='color'
+              onChange={(e) => setColor(e.target.value)}
+              value={color}
+              className='rounded bg-transparent'
+            />
           </div>
         </div>
       </div>
