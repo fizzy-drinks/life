@@ -1,18 +1,18 @@
 'use client';
 
-import { GameState } from '@/types/GameState';
 import { FC } from 'react';
+import { useGame } from './GameContext';
+import { useVisualisation } from './VisualisationContext';
 
-const LiveCells: FC<{
-  cells: GameState;
-  center: [number, number];
-  color: string;
-}> = ({ cells, center, color }) => {
-  const isCellLive = (x: number, y: number) => cells[x]?.[y] === true;
+const LiveCells: FC = () => {
+  const { gameState } = useGame();
+  const { center, color } = useVisualisation();
+
+  const isCellLive = (x: number, y: number) => gameState[x]?.[y] === true;
 
   return (
     <div className='absolute top-0 left-0 w-full h-full overflow-hidden'>
-      {Object.entries(cells).map(([x, row]) =>
+      {Object.entries(gameState).map(([x, row]) =>
         Object.entries(row)
           .filter(([, live]) => live)
           .map(([y]) => (

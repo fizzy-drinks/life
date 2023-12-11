@@ -1,8 +1,11 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
+import { useVisualisation } from './VisualisationContext';
 
-const Grid: FC<{ center: [number, number] }> = ({ center }) => {
+const Grid: FC = () => {
+  const { center } = useVisualisation();
+
   const [screenSize, setScreenSize] = useState<[number, number]>([0, 0]);
   useEffect(() => {
     setScreenSize([window.innerWidth, window.innerHeight]);
