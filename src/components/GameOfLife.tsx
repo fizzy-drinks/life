@@ -5,6 +5,7 @@ import ClickListener from './ClickListener';
 import Grid from './Grid';
 import LiveCells from './LiveCells';
 import { GameState } from '@/types/GameState';
+import { useInterval } from 'usehooks-ts';
 
 const GameOfLife = () => {
   const [center, setCenter] = useState<[number, number]>([0, 0]);
@@ -82,6 +83,14 @@ const GameOfLife = () => {
     setLiveCells(newState);
   };
 
+  const [playing, setPlaying] = useState(false);
+  const togglePlay = () => {
+    if (!playing) next();
+    setPlaying((p) => !p);
+  };
+
+  useInterval(next, playing ? 1000 : null);
+
   return (
     <>
       <Grid center={center} />
@@ -91,12 +100,17 @@ const GameOfLife = () => {
         onNavigate={moveCenter}
         center={center}
       />
-      <button
-        onClick={next}
-        className='bg-white p-4 text-lg text-black absolute'
-      >
-        Next
-      </button>
+      <div className='bg-white p-4 text-lg text-black absolute'>
+        <button onClick={next} className='rounded border-2 border-black p-2'>
+          Next
+        </button>
+        <button
+          onClick={togglePlay}
+          className='rounded border-2 border-black p-2'
+        >
+          {playing ? 'Stop' : 'Play'}
+        </button>
+      </div>
     </>
   );
 };
