@@ -1,14 +1,35 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useGame } from './GameContext';
 import { useVisualisation } from './VisualisationContext';
+import { useRouter } from 'next/navigation';
+import { GameState } from '@/types/GameState';
 
-const Controls: FC = () => {
-  const { playing, togglePlay, setSpeed, setPlaying, next, reset } = useGame();
+const Controls = () => {
+  const { playing, togglePlay, setSpeed, setName, name, next, reset } =
+    useGame();
   const { color, setColor } = useVisualisation();
+  const router = useRouter();
 
   const [skip, setSkip] = useState<number>(5);
+
+  const [saves, setSaves] = useState<
+    { id: string; name: string; state: GameState }[]
+  >([]);
+  useEffect(() => {
+    fetch('/api/game')
+      .then((res) => res.json())
+      .then((data: Record<string, { name: string; state: GameState }>) =>
+        setSaves(
+          Object.entries(data).map(([id, { name, state }]) => ({
+            id,
+            name,
+            state,
+          })),
+        ),
+      );
+  }, []);
 
   return (
     <div className='absolute bottom-0 w-full flex justify-center'>
@@ -75,8 +96,39 @@ const Controls: FC = () => {
             type='color'
             onChange={(e) => setColor(e.target.value)}
             value={color}
-            className='rounded bg-transparent'
+            className='bg-transparent'
           />
+        </div>
+        <div className='p-2'>
+          <label htmlFor='name' className='block text-center'>
+            Name
+          </label>
+          <input
+            id='name'
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            className='rounded bg-gray-500 text-black text-center w-20 my-1'
+          />
+        </div>
+        <div className='p-2'>
+          <label htmlFor='load' className='block text-center'>
+            Load
+          </label>
+          <select
+            id='load'
+            onChange={(e) => router.push('/life/' + e.target.value)}
+            value={color}
+            className='rounded bg-gray-500 text-black p-1'
+          >
+            {saves.map((save) => (
+              <option key={save.id} value={save.id}>
+                {save.name}
+              </option>
+            ))}
+            <option key='__new__' value=''>
+              Create new...
+            </option>
+          </select>
         </div>
       </div>
     </div>

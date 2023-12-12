@@ -14,6 +14,8 @@ import {
 import { useInterval } from 'usehooks-ts';
 
 const GameContext = createContext<{
+  name: string;
+  setName: (val: string) => void;
   gameState: GameState;
   playing: boolean;
   setPlaying: (val: boolean) => void;
@@ -30,6 +32,7 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
   gameId,
 }) => {
   const [gameState, setGameState] = useState<GameState>({});
+  const [name, setName] = useState<string>('');
 
   const [speed, setSpeed] = useState(1);
   const [playing, setPlaying] = useState(false);
@@ -64,7 +67,7 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
       gameId &&
         fetch('/api/game/' + gameId, {
           method: 'PUT',
-          body: JSON.stringify(liveCells),
+          body: JSON.stringify({ state: liveCells, name }),
         });
 
       return liveCells;
@@ -76,7 +79,11 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
   useEffect(() => {
     fetch('/api/game/' + gameId)
       .then((res) => res.json())
-      .then(setGameState);
+      .then(
+        (data: { name: string; state: GameState }) => (
+          setGameState(data.state || {}), setName(data.name || '')
+        ),
+      );
   }, [gameId]);
 
   return (
@@ -91,6 +98,8 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
         playing,
         setPlaying,
         togglePlay,
+        name,
+        setName,
       }}
     >
       {children}

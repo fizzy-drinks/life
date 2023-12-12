@@ -16,7 +16,8 @@ const handler: NextApiHandler = async function (req, res) {
   }
 
   if (req.method === 'PUT') {
-    res.json(setGame(req.query.gameId as string, JSON.parse(req.body)));
+    const { name, state } = JSON.parse(req.body);
+    res.json(setGame(req.query.gameId as string, name, state));
   }
 };
 

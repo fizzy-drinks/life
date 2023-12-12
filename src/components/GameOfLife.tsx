@@ -24,10 +24,10 @@ async function getData(): Promise<string> {
 const GameOfLife = ({ gameId }: { gameId?: string }) => {
   const [id, setId] = useState<string>(gameId || '');
   useEffect(() => {
-    if (!gameId) {
+    if (!id) {
       getData().then(setId);
     }
-  }, [gameId]);
+  }, [id]);
 
   return (
     <GameProvider gameId={id}>
