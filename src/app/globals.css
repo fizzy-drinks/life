@@ -16,6 +16,17 @@
   }
 }
 
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url(/NotoColorEmoji-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Afacad';
+  src: url(/Afacad-VariableFont_wght.ttf);
+  size-adjust: 135%;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,4 +35,5 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  font-family: 'Afacad', 'Noto Color Emoji', sans-serif;
 }

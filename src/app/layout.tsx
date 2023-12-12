@@ -1,11 +1,8 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 
 import icon from './favicon.png';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Life',
@@ -22,7 +19,7 @@ export default function RootLayout({
       <head>
         <link rel='icon' href={icon.src} />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
