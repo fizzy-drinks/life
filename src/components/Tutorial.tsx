@@ -1,13 +1,10 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 
 import Button from './Button';
-
-const Paragraph: FC<PropsWithChildren> = (props) => (
-  <p {...props} className='mb-3' />
-);
+import { Heading, Paragraph } from './Typography';
 
 const Tutorial: FC<{ visible: boolean; onClose: () => void }> = ({
   visible,
@@ -21,7 +18,7 @@ const Tutorial: FC<{ visible: boolean; onClose: () => void }> = ({
       )}
     >
       <div className='rounded-lg bg-slate-800 text-white p-5 max-w-lg'>
-        <h1 className='text-2xl font-bold mb-3'>Welcome to Life</h1>
+        <Heading>Welcome to Life</Heading>
         <Paragraph>
           This is a web implementation of Conway&apos;s Game of Life.
         </Paragraph>

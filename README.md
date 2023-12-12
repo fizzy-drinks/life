@@ -2,6 +2,18 @@
 
 This is an implementation of Conway's Game of Life using Next.js.
 
+# Running the app
+
+It's available [online](https://life-indol-seven.vercel.app/life) if you want to run it without installing!
+
+If you want to run it locally however, you can generate a production build by having Node.js installed in your machine and following the steps below on terminal:
+
+```sh
+npm i
+npm run build
+npm start
+```
+
 # Requirements
 
 * Build a web version of Conway's Game of Life that:
