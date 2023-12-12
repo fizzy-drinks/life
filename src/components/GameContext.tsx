@@ -7,6 +7,8 @@ import {
   PropsWithChildren,
   createContext,
   useContext,
+  useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { useInterval } from 'usehooks-ts';
@@ -23,7 +25,10 @@ const GameContext = createContext<{
   setCell: (coords: [number, number], val: boolean) => void;
 }>({} as unknown as any);
 
-const GameProvider: FC<PropsWithChildren> = ({ children }) => {
+const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
+  children,
+  gameId,
+}) => {
   const [gameState, setGameState] = useState<GameState>({});
 
   const [speed, setSpeed] = useState(1);
@@ -52,13 +57,27 @@ const GameProvider: FC<PropsWithChildren> = ({ children }) => {
       const liveCells = JSON.parse(JSON.stringify(prev));
       if (!liveCells[x]) liveCells[x] = {};
 
+      if (liveCells[x][y] === value) return liveCells;
+
       liveCells[x][y] = value;
+
+      gameId &&
+        fetch('/api/game/' + gameId, {
+          method: 'PUT',
+          body: JSON.stringify(liveCells),
+        });
 
       return liveCells;
     });
   };
 
   useInterval(next, playing ? 1000 / speed : null);
+
+  useEffect(() => {
+    fetch('/api/game/' + gameId)
+      .then((res) => res.json())
+      .then(setGameState);
+  }, [gameId]);
 
   return (
     <GameContext.Provider

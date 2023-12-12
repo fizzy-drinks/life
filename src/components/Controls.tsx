@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, useState } from 'react';
 import { useGame } from './GameContext';
 import { useVisualisation } from './VisualisationContext';

@@ -4,7 +4,7 @@ import { FC, MouseEventHandler, useState } from 'react';
 import { useGame } from './GameContext';
 import { useVisualisation } from './VisualisationContext';
 
-const ClickListener: FC = () => {
+const ClickListener = () => {
   const { setCell, gameState } = useGame();
   const { center, moveCenter } = useVisualisation();
 
