@@ -1,5 +1,6 @@
-import { getGames, newGame, setGame } from '@/services/GameService';
 import { NextApiHandler } from 'next';
+
+import { getGames, newGame, setGame } from '@/services/GameService';
 
 const handler: NextApiHandler = async function POST(req, res) {
   if (req.method === 'POST') {

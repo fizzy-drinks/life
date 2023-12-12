@@ -1,10 +1,12 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { GameState } from '@/types/GameState';
+
 import { useGame } from './GameContext';
 import { useVisualisation } from './VisualisationContext';
-import { useRouter } from 'next/navigation';
-import { GameState } from '@/types/GameState';
 
 const Controls = () => {
   const {

@@ -1,6 +1,6 @@
-import { getGame, newGame, setGame } from '@/services/GameService';
 import { NextApiHandler } from 'next';
-import { NextRequest, NextResponse } from 'next/server';
+
+import { getGame, setGame } from '@/services/GameService';
 
 const handler: NextApiHandler = async function (req, res) {
   const game = getGame(req.query.gameId as string);

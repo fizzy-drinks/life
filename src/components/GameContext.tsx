@@ -1,18 +1,18 @@
 'use client';
 
-import getNextState from '@/helpers/getNextState';
-import { GameState } from '@/types/GameState';
 import { useRouter } from 'next/navigation';
 import {
+  createContext,
   FC,
   PropsWithChildren,
-  createContext,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { useInterval } from 'usehooks-ts';
+
+import getNextState from '@/helpers/getNextState';
+import { GameState } from '@/types/GameState';
 
 const GameContext = createContext<{
   gameId?: string;

@@ -1,6 +1,7 @@
 'use client';
 
-import { FC, MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
+
 import { useGame } from './GameContext';
 import { useVisualisation } from './VisualisationContext';
 
@@ -13,7 +14,7 @@ const ClickListener = () => {
   const [erasing, setErasing] = useState(false);
   const [initial, setInitial] = useState<[number, number]>([0, 0]);
 
-  const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
+  const onClick: MouseEventHandler<HTMLDivElement> = () => {
     setDragging(false);
     setDrawing(false);
     setErasing(false);

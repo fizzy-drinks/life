@@ -1,7 +1,12 @@
 {
   "extends": "next/core-web-vitals",
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "unused-imports", "simple-import-sort", "@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
   "rules": {
-    "prettier/prettier": 1
+    "prettier/prettier": 1,
+    "no-unused-vars": 0,
+    "unused-imports/no-unused-imports": 1,
+    "unused-imports/no-unused-vars": [1, { "varsIgnorePattern": "^_" }],
+    "simple-import-sort/imports": 1
   }
 }

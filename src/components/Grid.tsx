@@ -1,6 +1,7 @@
 'use client';
 
 import { FC, useEffect, useState } from 'react';
+
 import { useVisualisation } from './VisualisationContext';
 
 const Grid: FC = () => {

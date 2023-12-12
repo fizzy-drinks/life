@@ -1,7 +1,8 @@
+import { v4 } from 'uuid';
+
+import gamesStore from '@/helpers/games';
 import getNextState from '@/helpers/getNextState';
 import { GameState } from '@/types/GameState';
-import { v4 } from 'uuid';
-import gamesStore from '@/helpers/games';
 
 export function newGame() {
   const newId = v4();
