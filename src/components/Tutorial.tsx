@@ -36,6 +36,11 @@ const Tutorial: FC<{ visible: boolean; onClose: () => void }> = ({
           need.
         </Paragraph>
         <Paragraph>
+          ⏯ When you&apos;re satisfied, hit the <strong>play</strong> button to
+          see the outcome of your input. You can also see a few examples in the{' '}
+          <strong>Presets</strong> section.
+        </Paragraph>
+        <Paragraph>
           🆘 To see this help bubble again, simply click <strong>Help</strong>{' '}
           on the drawer at the bottom of the screen.
         </Paragraph>
