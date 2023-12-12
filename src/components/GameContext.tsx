@@ -15,6 +15,7 @@ import {
 import { useInterval } from 'usehooks-ts';
 
 const GameContext = createContext<{
+  gameId?: string;
   name: string;
   setName: (val: string) => void;
   gameState: GameState;
@@ -117,6 +118,7 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
         togglePlay,
         name,
         setName,
+        gameId,
       }}
     >
       {children}

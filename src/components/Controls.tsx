@@ -7,8 +7,17 @@ import { useRouter } from 'next/navigation';
 import { GameState } from '@/types/GameState';
 
 const Controls = () => {
-  const { playing, togglePlay, setSpeed, setName, name, next, reset, save } =
-    useGame();
+  const {
+    playing,
+    togglePlay,
+    setSpeed,
+    setName,
+    name,
+    next,
+    reset,
+    save,
+    gameId,
+  } = useGame();
   const { color, setColor } = useVisualisation();
   const router = useRouter();
 
@@ -125,7 +134,7 @@ const Controls = () => {
           <select
             id='load'
             onChange={(e) => router.push('/life/' + e.target.value)}
-            value={color}
+            value={gameId}
             className='rounded bg-gray-500 text-black p-1'
           >
             {saves.map((save) => (
