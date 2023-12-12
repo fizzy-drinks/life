@@ -11,8 +11,14 @@ import Tutorial from './Tutorial';
 import VisualisationProvider from './VisualisationContext';
 
 const GameOfLife = ({ gameId }: { gameId?: string }) => {
-  const [tutorial, setTutorial] = useState(true);
-  const toggleTutorial = () => setTutorial((p) => !p);
+  const [tutorial, setTutorial] = useState(
+    !localStorage.getItem('tutorial-ok'),
+  );
+  const toggleTutorial = () =>
+    setTutorial((p) => {
+      localStorage.setItem('tutorial-ok', 'ok');
+      return !p;
+    });
 
   return (
     <GameProvider gameId={gameId}>
