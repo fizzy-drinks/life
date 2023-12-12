@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ClickListener from './ClickListener';
 import Controls from './Controls';
@@ -11,14 +11,16 @@ import Tutorial from './Tutorial';
 import VisualisationProvider from './VisualisationContext';
 
 const GameOfLife = ({ gameId }: { gameId?: string }) => {
-  const [tutorial, setTutorial] = useState(
-    !localStorage.getItem('tutorial-ok'),
-  );
+  const [tutorial, setTutorial] = useState(false);
   const toggleTutorial = () =>
     setTutorial((p) => {
       localStorage.setItem('tutorial-ok', 'ok');
       return !p;
     });
+
+  useEffect(() => {
+    setTutorial(!localStorage.getItem('tutorial-ok'));
+  }, []);
 
   return (
     <GameProvider gameId={gameId}>
