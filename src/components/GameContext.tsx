@@ -2,6 +2,7 @@
 
 import getNextState from '@/helpers/getNextState';
 import { GameState } from '@/types/GameState';
+import { useRouter } from 'next/navigation';
 import {
   FC,
   PropsWithChildren,
@@ -25,6 +26,7 @@ const GameContext = createContext<{
   next: (skip: number) => void;
   reset: () => void;
   setCell: (coords: [number, number], val: boolean) => void;
+  save: () => void;
 }>({} as unknown as any);
 
 const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
@@ -55,6 +57,26 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
     setPlaying(false);
   };
 
+  const router = useRouter();
+
+  const save = async () => {
+    if (gameId) {
+      fetch('/api/game/' + gameId, {
+        method: 'PUT',
+        body: JSON.stringify({ state: gameState, name }),
+      });
+
+      return;
+    }
+
+    const res = await fetch('/api/game', {
+      method: 'POST',
+      body: JSON.stringify({ state: gameState, name }),
+    });
+    const id = await res.json();
+    router.push('/life/' + id);
+  };
+
   const setCell = ([x, y]: [number, number], value: boolean) => {
     setGameState((prev) => {
       const liveCells = JSON.parse(JSON.stringify(prev));
@@ -63,12 +85,6 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
       if (liveCells[x][y] === value) return liveCells;
 
       liveCells[x][y] = value;
-
-      gameId &&
-        fetch('/api/game/' + gameId, {
-          method: 'PUT',
-          body: JSON.stringify({ state: liveCells, name }),
-        });
 
       return liveCells;
     });
@@ -92,6 +108,7 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
         gameState,
         next,
         reset,
+        save,
         setCell,
         speed,
         setSpeed,

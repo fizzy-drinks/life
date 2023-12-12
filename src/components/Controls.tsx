@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { GameState } from '@/types/GameState';
 
 const Controls = () => {
-  const { playing, togglePlay, setSpeed, setName, name, next, reset } =
+  const { playing, togglePlay, setSpeed, setName, name, next, reset, save } =
     useGame();
   const { color, setColor } = useVisualisation();
   const router = useRouter();
@@ -109,6 +109,14 @@ const Controls = () => {
             value={name}
             className='rounded bg-gray-500 text-black text-center w-20 my-1'
           />
+        </div>
+        <div className='p-2'>
+          <button
+            className='w-full border-2 rounded border-gray-500 p-1'
+            onClick={save}
+          >
+            Save
+          </button>
         </div>
         <div className='p-2'>
           <label htmlFor='load' className='block text-center'>
