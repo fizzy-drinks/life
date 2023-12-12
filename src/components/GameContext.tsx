@@ -37,7 +37,7 @@ const GameProvider: FC<PropsWithChildren<{ gameId?: string }>> = ({
   const [gameState, setGameState] = useState<GameState>({});
   const [name, setName] = useState<string>('');
 
-  const [speed, setSpeed] = useState(1);
+  const [speed, setSpeed] = useState(3);
   const [playing, setPlaying] = useState(false);
   const togglePlay = () => {
     if (!playing) next();
